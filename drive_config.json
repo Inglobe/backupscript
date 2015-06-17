@@ -1,0 +1,8 @@
+{
+    "service_account":"",
+    "private_key12_path":"",
+    "backup_folder_id":"",
+    "path_backup_file": "",
+    "description" : "Description for backup file",
+    "max_file_in_folder": 7
+}
