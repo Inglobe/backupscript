@@ -13,7 +13,7 @@ helper.py from https://github.com/bachvtuan/Backup-To-Google-Drive
 
 Read https://support.google.com/accounts/answer/185833
 
-# Config Postgres For trust (only one user in the system)
+### Config Postgres For trust (only one user in the system)
 
-You need to edit the pg_hba.conf file and edit the row as:
+1.You need to edit the pg_hba.conf file and edit the row as
         local   all             postgres                       trust
