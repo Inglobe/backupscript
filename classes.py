@@ -148,7 +148,21 @@ class PostgressDriveBackup(IBackup):
             file_result = helper.insert_file(
                 drive_service, config, self.file_path, self.bkp_file, upload_file_mimetype)
         except Exception, e:
-            import pdb;pdb.set_trace()
             self.logger.info(
                 'Ha ocurrido un error al subir el archivo a la cuenta de Google Drive')
             raise Exception('Ha ocurrido un error al subir el archivo a la cuenta de Google Drive')
+
+        # Si excedemos cantidad de archivos a subir, borramos anteriores
+        children_files = helper.files_in_folder( drive_service, config['backup_folder_id'] )
+        if len( children_files ) > config['max_file_in_folder']:
+            #Remove old backup file
+            number_delete_file = len(children_files) - config['max_file_in_folder']
+            count = 0
+            index_delete_file = len(children_files) -1
+
+            while count < number_delete_file:
+                children_id = children_files[index_delete_file]['id']
+                self.logger.info( "Removing old file with id " + children_id)
+                helper.remove_file_from_folder( drive_service, config['backup_folder_id'], children_id )
+                count +=1
+                index_delete_file -=1
