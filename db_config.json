@@ -3,5 +3,7 @@
     "db_nombre": "",
     "db_usuario": "",
     "db_password": "",
-    "path_backup_file": ""
+    "path_backup_file": "",
+    "google_user": "",
+    "google_app_passw": ""
 }
