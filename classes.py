@@ -31,12 +31,13 @@ class IBackup(object):
 
     def ejecutar(self):
         """
-        Este es el metodo que se utiliza para realizar dicho backup.
+        Realiza dicho backup.
         """
 
     def subir_archivo(self):
         """
-        Sube el archivo adonde se desee subir.
+        Sube el archivo adonde se desee subir. Chequea que el numero de archivos
+        en nube ni en disco local no supere el especificado en archivo DRIVE_CONFIG_PATH.
         """
 
 class Notificador(object):
