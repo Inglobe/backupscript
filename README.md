@@ -16,4 +16,5 @@ Read https://support.google.com/accounts/answer/185833
 ### Config Postgres For trust (only one user in the system)
 
 1.You need to edit the pg_hba.conf file and edit the row as
+
         local   all             postgres                       trust
