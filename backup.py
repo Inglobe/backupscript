@@ -29,7 +29,7 @@ if __name__ == '__main__':
     notificador = Notificador(google_user, google_app_passw)
     if db_tipo == 'postgres':
         backup = PostgressDriveBackup(db_name, dump_dir, db_username)
-    else db_tipo == 'mysql':
+    elif db_tipo == 'mysql':
         backup = MySqlDriveBackup(db_name, dump_dir, db_username, db_password)
 
     # Se genera el archivo primero
