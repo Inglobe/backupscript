@@ -6,6 +6,7 @@ import json
 
 from classes import Notificador
 from classes import PostgressDriveBackup
+from classes import MySqlDriveBackup
 from config import LOGGER_FORMAT, LOG_FILENAME
 from config import MAIL_ERROR_SUBJECT
 from config import MAIL_SUCCESS_SUBJECT
@@ -28,7 +29,8 @@ if __name__ == '__main__':
     notificador = Notificador(google_user, google_app_passw)
     if db_tipo == 'postgres':
         backup = PostgressDriveBackup(db_name, dump_dir, db_username)
-    # TODO: falta para MySql
+    else db_tipo == 'mysql':
+        backup = MySqlDriveBackup(db_name, dump_dir, db_username, db_password)
 
     # Se genera el archivo primero
     try:
