@@ -1,12 +1,13 @@
 # Para script de backup
 import os
-from datetime import datetime
 import mimetypes
 import helper
 import json
 import time
 import logging
 import subprocess
+from datetime import datetime
+from operator import itemgetter
 
 # Para notificiar x email
 import smtplib
@@ -16,6 +17,7 @@ from email.MIMEText import MIMEText
 
 from config import LOGGER_FORMAT, LOG_FILENAME
 from config import DRIVE_CONFIG_PATH
+from config import MAX_FILES_DUMP_DIR
 
 
 class IBackup(object):
@@ -31,7 +33,9 @@ class IBackup(object):
 
     def ejecutar(self):
         """
-        Realiza dicho backup.
+        Realiza dicho backup. Se fija que la cantidad de archivos en el
+        directorio dumper no superer el numero de archivos maximo especificado
+        en el archivo DRIVE_CONFIG_PATH.
         """
 
     def subir_archivo(self):
@@ -108,7 +112,7 @@ class PostgressDriveBackup(IBackup):
             dumper = " -U %s -Z 9 -f %s -F c %s  "
             # Usamos una fecha en el nombre para identificar rapidamente cuando
             # se hizo
-            date = datetime.now().strftime('%Y-%m-%d-%H%M')
+            date = datetime.now().strftime('%Y-%m-%d-%H%M%S')
             temp_file_name = '%s--%s.sql' % (date, self.db_name)
             temp_file_path = os.path.join(self.dump_dir, temp_file_name)
             command = 'pg_dump' + \
@@ -122,6 +126,23 @@ class PostgressDriveBackup(IBackup):
         except Exception, e:
             self.logger.error('No se pudo crear el backup %s' % (self.db_name))
             raise Exception('No se pudo crear el backup %s' % (self.db_name))
+
+        # Chequeamos cantidad de archivos en disco
+        try:
+            config_file = open(DRIVE_CONFIG_PATH, 'r')
+            config = json.loads(config_file.read())
+        except Exception, e:
+            self.logger.error('Error al abrir el archivo drive_config.json.')
+            raise Exception('Error al abrir el archivo drive_config.json.')
+
+        files = os.listdir(self.dump_dir)
+        if len(files) > MAX_FILES_DUMP_DIR:
+            fileData = {}
+            for fname in files:
+                path = self.dump_dir + '/' + fname
+                fileData[path] = os.stat(path).st_mtime
+            sortedFiles = sorted(fileData.items(), key=itemgetter(1))
+            os.remove(sortedFiles[0][0])
 
     def subir_archivo(self):
         """
