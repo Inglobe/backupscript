@@ -19,3 +19,14 @@ Read https://support.google.com/accounts/answer/185833
 1.You need to edit the pg_hba.conf file and edit the row as
 
         local   all             postgres                       trust
+
+### MySQL
+
+We may need to add a user to a database to avoid user root. To do this:
+
+       $  mysql -h localhost  -u root -p
+       mysql> grant CREATE,INSERT,DELETE,UPDATE,SELECT on testingdb.* to ignacio@localhost;
+       mysql> set password for ignacio@localhost = password('mysecretpassword');
+       mysql> flush privileges;
+       mysql> exit;
+
