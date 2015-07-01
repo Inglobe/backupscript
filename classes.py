@@ -101,6 +101,10 @@ class PostgressDriveBackup(IBackup):
         # Base de datos
         self.db_name = db_name
         self.dump_dir = dump_dir
+        try:
+            os.stat(self.dump_dir)
+        except:
+            os.mkdir(self.dump_dir)
         self.db_username = db_username
 
     def ejecutar(self):
@@ -209,6 +213,10 @@ class MySqlDriveBackup(IBackup):
         # Base de datos
         self.db_name = db_name
         self.dump_dir = dump_dir
+        try:
+            os.stat(self.dump_dir)
+        except:
+            os.mkdir(self.dump_dir)
         self.db_username = db_username
         self.db_password = db_password
 
