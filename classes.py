@@ -228,6 +228,7 @@ class MySqlDriveBackup(IBackup):
         """
         try:
             dumper = " -U %s -p %s %s "
+            dumper = " --single-transaction -u %s -p%s %s "
             # Usamos una fecha en el nombre para identificar rapidamente cuando
             # se hizo
             date = datetime.now().strftime('%Y-%m-%d-%H%M%S')
