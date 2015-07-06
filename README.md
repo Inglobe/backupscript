@@ -34,7 +34,7 @@ Create config file( such as config_file.json ) and input into this file with jso
 
 1.You need to edit the pg_hba.conf file and edit the row as
 
-# "local" is for Unix domain socket connections only
+"local" is for Unix domain socket connections only
 local   all             all                                     trust
 
 ### MySQL
