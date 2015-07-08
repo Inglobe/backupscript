@@ -48,3 +48,13 @@ We may need to add a user to a database to avoid user root. To do this:
        mysql> flush privileges;
        mysql> exit;
 
+### Backup Configuration
+
+You'll see the file config.py in the repository. This contains different variables to customize behavior:
+
+        LOGGER_FORMAT = # Declares the format that logger will have.
+        LOG_FILENAME = # Path where the log file will go.
+        DRIVE_CONFIG_PATH = # Path where all Google Drive account data is.
+        MAIL_SUCCESS_SUBJECT = # Subject text that success email will have.
+        MAIL_ERROR_SUBJECT = # Subject text that error email will have.
+        MAX_FILES_DUMP_DIR = # Limit amount of files that backup folder will keep.
