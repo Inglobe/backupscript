@@ -8,7 +8,7 @@
         sudo apt-get install python-openssl
         sudo pip install PyOpenSSL
 
-helper.py from https://github.com/bachvtuan/Backup-To-Google-Drive
+reference from https://github.com/bachvtuan/Backup-To-Google-Drive if more information needed
 
 # You'll need Google app password: 
 
