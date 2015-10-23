@@ -1,5 +1,9 @@
 # BACKUP SCRIPT
 
+Con docker modificamos el comando para backup de la db en el caso de Odoo:
+docker exec db-odoo80 pg_dump -U odoo -Fc Inglobe_SRL > test.dump
+
+
 ### Requires
 
         sudo pip install --upgrade google-api-python-client
