@@ -114,14 +114,14 @@ class PostgressDriveBackup(IBackup):
         @param db_name: nombre de base de datos.
         """
         try:
-            dumper = " -U %s -Z 9 -f %s -F c %s  "
+            dumper = " -U %s -Z 9 -F c %s > %s "
             # Usamos una fecha en el nombre para identificar rapidamente cuando
             # se hizo
             date = datetime.now().strftime('%Y-%m-%d-%H%M%S')
             temp_file_name = '%s--%s.sql' % (date, self.db_name)
             temp_file_path = os.path.join(self.dump_dir, temp_file_name)
-            command = 'pg_dump' + \
-                dumper % (self.db_username, temp_file_path, self.db_name)
+            command = 'docker exec db-odoo80 pg_dump' + \
+                dumper % (self.db_username, self.db_name, temp_file_path)
             subprocess.call(command, shell=True)
             subprocess.call('gzip -f ' + temp_file_path, shell=True)
             self.bkp_file = temp_file_name + '.gz'
